@@ -5,34 +5,39 @@ import math
 
 
 #potrzebny do walidacji danych liczbowych
-pattern = re.compile(r'(^\d+\.?\d*[+-]\d+\.?\d*j$|^\d+\.?\d*j?$)')
+pattern = re.compile(r'(^[-]?\d+\.?\d*[+-]\d+\.?\d*j$|^[-]?\d+\.?\d*j?$)')
 
 
 
 #testy to powyzszego regex
 
-#test = '''
-#-0
-#2
-#2+
-#+2
-#2j
-#222j
-#222
-#2.222
-#2.222j
-#2+2j
-#2.2+2.2j
-#22+22
-#j
-#asdas
-#sad+sad
-#'''
-#raw = test.split('\n')
-#matches = pattern.match(test)
-#for match in raw:
-#    if pattern.match(match):
-#        print(match)
+test = '''
+-2
+2-2j
+-2-2j
+-2.2
+-2.2-2.2j
+-0
+2
+2+
++2
+2j
+222j
+222
+2.222
+2.222j
+2+2j
+2.2+2.2j
+22+22
+j
+asdas
+sad+sad
+'''
+raw = test.split('\n')
+matches = pattern.match(test)
+for match in raw:
+   if pattern.match(match):
+       print(match)
 
 
 
@@ -153,11 +158,10 @@ if __name__ == '__main__':
                     for idx, sol in enumerate(store):
                         print(f'{idx+1}.', end = " ")
                         printForm(sol)
-                    ans1 = int(validatioInputString('Podaj numer wyniku do 1 argumentu lub 0 jeżeli nie chcesz nic wpisywać: ', [str(x) for x in range(store.size_of() + 2)]))
-                    ans2 = int(validatioInputString('Podaj numer wyniku do 2 argumentu lub 0 jeżeli nie chcesz nic wpisywać: ', [str(x) for x in range(store.size_of() + 2)]))
+                    ans1 = int(validatioInputString('Podaj numer wyniku do 1 argumentu lub 0 jeżeli nie chcesz nic wpisywać: ', [str(x) for x in range(store.size_of() + 1)]))
+                    ans2 = int(validatioInputString('Podaj numer wyniku do 2 argumentu lub 0 jeżeli nie chcesz nic wpisywać: ', [str(x) for x in range(store.size_of() + 1)]))
                     ans1 = store.operations[ans1 - 1] if ans1 != 0 else None
                     ans2 = store.operations[ans2 - 1] if ans2 != 0 else None
-                    print(ans1, ans2)
             #wyprowadzenie argumentow         
             if ans1 == None:
                 arg1 = isValidDigit('Podaj 1 arg: ', pattern)
@@ -195,4 +199,3 @@ if __name__ == '__main__':
                         
     except KeyboardInterrupt:
         print("Wyjscie z programu")
-
